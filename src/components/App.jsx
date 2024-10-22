@@ -12,7 +12,7 @@ function reducer(state, action) {
     case "dataReceived":
       return { ...state, questions: action.payload };
     default:
-      return state;
+      throw new Error("Action unknown");
   }
 }
 
