@@ -1,15 +1,31 @@
 import { useEffect, useReducer } from "react";
 import Header from "./Header";
+import Main from "./Main";
 import "../App.css";
 
 const initialState = {
   questions: [],
 };
 
-function reducer(state, payload) {}
+function reducer(state, action) {
+  switch (action.type) {
+    case "dataReceived":
+      return { ...state, questions: action.payload };
+    default:
+      return state;
+  }
+}
 
 export default function App() {
-  const [state, dispatch] = useReducer(initialState, reducer);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/questions")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "dataReceived", payload: data }))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
     <div className="app">
       <Header />
