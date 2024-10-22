@@ -1,11 +1,18 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
+import Header from "./Header";
 import "../App.css";
 
-const initialState = {};
+const initialState = {
+  questions: [],
+};
 
 function reducer(state, payload) {}
 
 export default function App() {
   const [state, dispatch] = useReducer(initialState, reducer);
-  return <div></div>;
+  return (
+    <div className="app">
+      <Header />
+    </div>
+  );
 }
