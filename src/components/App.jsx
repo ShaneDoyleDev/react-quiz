@@ -13,6 +13,7 @@ const initialState = {
   status: "loading",
   index: 0,
   answer: null,
+  score: 0,
 };
 
 function reducer(state, action) {
@@ -24,9 +25,16 @@ function reducer(state, action) {
     case "start":
       return { ...state, status: "active" };
     case "setAnswer":
+      // check if the answer is correct for the currrent question and set the points accordingly
       const currentQuestion = state.questions.at(state.index);
-
-      return { ...state, answer: action.payload };
+      return {
+        ...state,
+        answer: action.payload,
+        points:
+          currentQuestion.correctOption === action.payload
+            ? state.score + currentQuestion.points
+            : state.score,
+      };
     default:
       throw new Error("Action unknown");
   }
