@@ -21,8 +21,10 @@ const initialState = {
   index: 0,
   answer: null,
   score: 0,
-  secondsRemaining: 300,
+  secondsRemaining: null,
 };
+
+const SECONDS_PER_QUESTION = 30;
 
 function reducer(state, action) {
   switch (action.type) {
@@ -31,7 +33,11 @@ function reducer(state, action) {
     case "dataReceivedFail":
       return { ...state, status: "error" };
     case "start":
-      return { ...state, status: "active" };
+      return {
+        ...state,
+        status: "active",
+        secondsRemaining: state.questions.length * SECONDS_PER_QUESTION,
+      };
     case "setAnswer":
       const currentQuestion = state.questions.at(state.index);
       return {
