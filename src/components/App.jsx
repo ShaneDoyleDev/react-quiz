@@ -50,6 +50,10 @@ export default function App() {
     initialState
   );
   const numQuestions = questions.length;
+  const totalPoints = questions.reduce(
+    (total, question) => total + question.points,
+    0
+  );
 
   useEffect(() => {
     fetch("http://localhost:8000/questions")
