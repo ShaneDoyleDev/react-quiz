@@ -84,7 +84,7 @@ export default function App() {
               answer={answer}
               dispatch={dispatch}
             />
-            {answer && <NextButton dispatch={dispatch} />}
+            {answer !== null && <NextButton dispatch={dispatch} />}
           </>
         )}
       </Main>

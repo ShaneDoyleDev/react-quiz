@@ -5,7 +5,7 @@ export default function Options({ options, question, answer, dispatch }) {
         <button
           key={index}
           className={`btn btn-option ${index === answer ? "answer" : ""} ${
-            answer
+            answer !== null
               ? index === question.correctOption
                 ? "correct"
                 : "wrong"
