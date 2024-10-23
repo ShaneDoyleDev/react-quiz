@@ -5,6 +5,7 @@ import StartScreen from "./StartScreen";
 import Progress from "./Progress";
 import Question from "./Question";
 import NextButton from "./NextButton";
+import FinishScreen from "./FinishScreen";
 import Loader from "./Loader";
 import Error from "./Error";
 import "../App.css";
@@ -85,6 +86,9 @@ export default function App() {
               dispatch={dispatch}
             />
             {answer !== null && <NextButton dispatch={dispatch} />}
+            {status === "finished" && (
+              <FinishScreen points={score} totalPoints={totalPoints} />
+            )}
           </>
         )}
       </Main>
