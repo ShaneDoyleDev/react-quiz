@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+
 import Header from "./Header";
 import Main from "./Main";
 import StartScreen from "./StartScreen";
@@ -10,6 +11,7 @@ import NextButton from "./NextButton";
 import FinishScreen from "./FinishScreen";
 import Loader from "./Loader";
 import Error from "./Error";
+
 import "../App.css";
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   index: 0,
   answer: null,
   score: 0,
+  secondsRemaining: 300,
 };
 
 function reducer(state, action) {
@@ -49,16 +52,22 @@ function reducer(state, action) {
         questions: state.questions,
         status: "ready",
       };
+    case "tick":
+      return {
+        ...state,
+        secondsRemaining: state.secondsRemaining - 1,
+        status: state.secondsRemaining === 0 ? "finished" : state.status,
+      };
     default:
       throw new Error("Action unknown");
   }
 }
 
 export default function App() {
-  const [{ questions, status, index, answer, score }, dispatch] = useReducer(
-    reducer,
-    initialState
-  );
+  const [
+    { questions, status, index, answer, score, secondsRemaining },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   const numQuestions = questions.length;
   const totalPoints = questions.reduce(
     (total, question) => total + question.points,
@@ -96,7 +105,7 @@ export default function App() {
               dispatch={dispatch}
             />
             <Footer>
-              <Timer />
+              <Timer secondsRemaining={secondsRemaining} dispatch={dispatch} />
               {answer !== null && (
                 <NextButton
                   index={index}
