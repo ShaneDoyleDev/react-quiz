@@ -27,25 +27,24 @@ function reducer(state, action) {
     case "start":
       return { ...state, status: "active" };
     case "setAnswer":
-      // check if the answer is correct for the currrent question and set the points accordingly
       const currentQuestion = state.questions.at(state.index);
       return {
         ...state,
         answer: action.payload,
-        points:
+        score:
           currentQuestion.correctOption === action.payload
             ? state.score + currentQuestion.points
             : state.score,
       };
     case "nextQuestion":
-      return { ...state, index: state.index + 1 };
+      return { ...state, answer: null, index: state.index + 1 };
     default:
       throw new Error("Action unknown");
   }
 }
 
 export default function App() {
-  const [{ questions, status, index, answer }, dispatch] = useReducer(
+  const [{ questions, status, index, answer, score }, dispatch] = useReducer(
     reducer,
     initialState
   );
@@ -80,11 +79,11 @@ export default function App() {
               points={score}
               totalPoints={totalPoints}
             />
-          <Question
-            question={questions[index]}
-            answer={answer}
-            dispatch={dispatch}
-          />
+            <Question
+              question={questions[index]}
+              answer={answer}
+              dispatch={dispatch}
+            />
             {answer && <NextButton dispatch={dispatch} />}
           </>
         )}
