@@ -4,6 +4,8 @@ import Main from "./Main";
 import StartScreen from "./StartScreen";
 import Progress from "./Progress";
 import Question from "./Question";
+import Footer from "./Footer";
+import Timer from "./Timer";
 import NextButton from "./NextButton";
 import FinishScreen from "./FinishScreen";
 import Loader from "./Loader";
@@ -93,13 +95,16 @@ export default function App() {
               answer={answer}
               dispatch={dispatch}
             />
-            {answer !== null && (
-              <NextButton
-                index={index}
-                numQuestions={numQuestions}
-                dispatch={dispatch}
-              />
-            )}
+            <Footer>
+              <Timer />
+              {answer !== null && (
+                <NextButton
+                  index={index}
+                  numQuestions={numQuestions}
+                  dispatch={dispatch}
+                />
+              )}
+            </Footer>
           </>
         )}
         {status === "finished" && (
