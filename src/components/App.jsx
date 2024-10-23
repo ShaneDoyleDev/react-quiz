@@ -2,6 +2,7 @@ import { useEffect, useReducer } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import StartScreen from "./StartScreen";
+import NextButton from "./NextButton";
 import Loader from "./Loader";
 import Error from "./Error";
 import Question from "./Question";
@@ -71,6 +72,8 @@ export default function App() {
             answer={answer}
             dispatch={dispatch}
           />
+            {answer && <NextButton dispatch={dispatch} />}
+          </>
         )}
       </Main>
     </div>
