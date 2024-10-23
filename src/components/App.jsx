@@ -41,6 +41,12 @@ function reducer(state, action) {
       return { ...state, answer: null, index: state.index + 1 };
     case "finishQuiz":
       return { ...state, status: "finished" };
+    case "restart":
+      return {
+        ...initialState,
+        questions: state.questions,
+        status: "ready",
+      };
     default:
       throw new Error("Action unknown");
   }
@@ -97,7 +103,11 @@ export default function App() {
           </>
         )}
         {status === "finished" && (
-          <FinishScreen points={score} totalPoints={totalPoints} />
+          <FinishScreen
+            points={score}
+            totalPoints={totalPoints}
+            dispatch={dispatch}
+          />
         )}
       </Main>
     </div>

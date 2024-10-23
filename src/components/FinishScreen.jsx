@@ -1,4 +1,4 @@
-export default function FinishScreen({ points, totalPoints }) {
+export default function FinishScreen({ points, totalPoints, dispatch }) {
   const percentage = ((points / totalPoints) * 100).toFixed(2);
 
   function getEmoji(percentage) {
@@ -10,9 +10,17 @@ export default function FinishScreen({ points, totalPoints }) {
   }
 
   return (
-    <p>
-      You scored <strong>{points}</strong> out of {totalPoints} ({percentage}%){" "}
-      {getEmoji(parseFloat(percentage))}
-    </p>
+    <>
+      <p>
+        You scored <strong>{points}</strong> out of {totalPoints} ({percentage}
+        %) {getEmoji(parseFloat(percentage))}
+      </p>
+      <button
+        className="btn btn-ui"
+        onClick={() => dispatch({ type: "restart" })}
+      >
+        Restart quiz
+      </button>
+    </>
   );
 }
