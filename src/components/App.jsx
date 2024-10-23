@@ -2,10 +2,11 @@ import { useEffect, useReducer } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import StartScreen from "./StartScreen";
+import Progress from "./Progress";
+import Question from "./Question";
 import NextButton from "./NextButton";
 import Loader from "./Loader";
 import Error from "./Error";
-import Question from "./Question";
 import "../App.css";
 
 const initialState = {
@@ -67,6 +68,14 @@ export default function App() {
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
         {status === "active" && (
+          <>
+            <Progress
+              index={index}
+              numQuestions={numQuestions}
+              answer={answer}
+              points={score}
+              totalPoints={totalPoints}
+            />
           <Question
             question={questions[index]}
             answer={answer}
